@@ -1,0 +1,68 @@
+CanvasBoard - Flutter Widget PRD
+
+1. Widget Name
+CanvasBoard
+
+2. One-liner Description
+A canvas board where users can add images (from network or local assets), manipulate them individually, and create custom compositions interactively.
+
+3. Objective / Purpose
+The CanvasBoard widget provides a flexible, interactive canvas where users can import images, manipulate them (move, scale, rotate, delete), and export the result as a PNG image path. It is responsive to screen size, and suitable for art, meme creation, education, and design tools.
+
+4. Design & Appearance
+- Customizable background (solid color or image)
+- Drag, scale, rotate, flip, delete image items
+- Optional toolbar with controls: add image, undo/redo, zoom, export, reset
+- Layering: bring to front, send to back
+
+5. Widget Parameters
+
+| Param                   | Type                              | Default               | Description |
+|-------------------------|------------------------------------|------------------------|-------------|
+| initialBackgroundColor  | Color?                            | Colors.white           | Background color |
+| initialBackgroundImage  | ImageProvider?                    | null                   | Optional background image |
+| initialItems            | List<CanvasItem>                  | []                     | Preloaded images |
+| onExport                | Function(String)                  | —                      | Callback with exported PNG path |
+| toolbarOptions          | ToolbarConfig                     | Default config         | Which toolbar buttons to show |
+| canvasKey               | GlobalKey?                        | null                   | Used for export |
+| isPreviewMode           | bool                              | false                  | If true, disables all editing |
+| previewSize             | Size?                             | null                   | Size for non-editable preview |
+| onItemMetadataUpdate    | Function(List<CanvasItemMeta>)?   | null                   | Emits live item metadata |
+
+CanvasItemMeta:
+- id: String
+- source: String
+- position: Offset
+- scale: double
+- rotation: double
+- flipped: bool
+- cropRect: Rect?
+
+6. Example Usage
+
+Interactive CanvasBoard:
+CanvasBoard(
+  initialBackgroundColor: Colors.white,
+  onExport: (path) => print("Exported to $path"),
+  toolbarOptions: ToolbarConfig(...),
+)
+
+Preview Mode:
+CanvasBoard.preview(
+  previewSize: Size(300, 500),
+  initialItems: [...],
+  initialBackgroundColor: Colors.grey[100],
+)
+
+7. Constraints
+
+- ✅ No 3rd-party packages
+- ✅ Supports Android, iOS, Web
+- ✅ Flutter SDK only (3.10+)
+- ✅ Responsive layout
+- ✅ Full gesture support: drag, pinch-to-zoom, rotate
+- ✅ Layer management (bring forward, send back)
+- ✅ Image export as PNG
+- ✅ Preview mode is static-only
+- ✅ Theme-aware
+- ✅ Performance-optimized for 10–20 items
