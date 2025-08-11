@@ -230,13 +230,16 @@ class _CanvasItemWidgetState extends State<CanvasItemWidget>
   void _resolveImage() {
     final src = widget.item.source;
     if (src.startsWith('http')) {
-      _getImageDimensions(Image.network(src).image);
+      _getImageDimensions(Image.network(src, fit: BoxFit.fitHeight).image);
     } else if (src.startsWith('file://')) {
       _getImageDimensions(
-        Image.file(File(src.replaceFirst('file://', ''))).image,
+        Image.file(
+          File(src.replaceFirst('file://', '')),
+          fit: BoxFit.fitHeight,
+        ).image,
       );
     } else {
-      _getImageDimensions(Image.asset(src).image);
+      _getImageDimensions(Image.asset(src, fit: BoxFit.fitHeight).image);
     }
   }
 
@@ -382,11 +385,11 @@ class _CanvasItemWidgetState extends State<CanvasItemWidget>
                     ),
                   ),
                 ),
-                if (item.isSelected &&
-                    _imageWidth != null &&
-                    _imageHeight != null &&
-                    !widget.isLocked)
-                  _buildFigmaHandles(itemWidth!, itemHeight ?? 0),
+                // if (item.isSelected &&
+                //     _imageWidth != null &&
+                //     _imageHeight != null &&
+                //     !widget.isLocked)
+                //   _buildFigmaHandles(itemWidth!, itemHeight ?? 0),
               ],
             ),
           ),

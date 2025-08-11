@@ -274,10 +274,12 @@ class _CanvasBoardViewState extends State<_CanvasBoardView> {
                                   onTap: widget.isPreviewMode
                                       ? null
                                       : () {
-                                          print('selectItem: ${item.id}');
                                           context
                                               .read<CanvasCubit>()
                                               .selectItem(item.id);
+                                          context
+                                              .read<CanvasCubit>()
+                                              .bringToFront(item.id);
                                         },
                                   onMove: widget.isPreviewMode
                                       ? null
